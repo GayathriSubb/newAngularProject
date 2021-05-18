@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="nav-row">
+      <edureka-navigation></edureka-navigation>
+      <edureka-user-profile *ngIf="toggleUserProfile" (logout)="clearProfileData($event)"[profile]="userprofile"></edureka-user-profile>
+  </mat-toolbar-row>
+</mat-toolbar>
+<edureka-photo-grid></edureka-photo-grid>
+<!-- <edureka-navigation></edureka-navigation>
+<edureka-user-profile *ngIf="toggleUserProfile" (logout)="clearProfileData($event)"[profile]="userprofile"></edureka-user-profile>
+
+<input [(ngModel)]="userprofile.initials">
+{{userprofile.initials}}
+
+<button (click)="ChangeValue()">Change Value</button>
+<button (click)="ChangeRef()">Change Ref</button> -->
+
+
+<!-- <edureka-user-profile [profile]="userprofile"></edureka-user-profile> -->
+
+<!-- {{userprofile.name}}//property binding and string interpolation
+
+{{getUserProfile().number}}//method -->
+
+<!-- {{1+1}}//runs the javascript code as it is -->
+
+<!-- {{userprofile.name}}
+<button (click)="changeName()">Change Name</button>//event binding -->
+
+<!-- {{userprofile.name}}
+<input [(ngModel)]="userprofile.name"/> //two way binding -->

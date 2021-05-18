@@ -1,0 +1,24 @@
+<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+    <p>
+        <label>
+            Email
+            <input [(ngModel)]="form.email" #email="ngModel" name="email" required/>
+        </label>
+        <span class="form-errors" *ngIf="email.errors && email.touched">
+            <span>This is a required value.</span>
+        </span>
+    </p>
+    <p>
+        <label>
+            Password
+            <input type="password" [(ngModel)]="form.password" #password="ngModel" name="password" required minlength="8"/>
+        </label>
+        <span class="form-errors" *ngIf="password.errors && password.touched">
+            <span *ngIf="password.errors.required">This is a required value.</span>
+            <span *ngIf="password.errors.minlength">Please provide 8 chars</span>
+        </span>
+    </p>
+    <button [disabled]="loginForm.status === 'INVALID'" type="submit">Login</button>
+    <a routerLink="/register">Not a user? Register Here</a>
+    <a href="https://google.com">Go to Google</a>
+</form>

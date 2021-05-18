@@ -1,0 +1,11 @@
+.photogrid {
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.photogrid > mat-card {
+    width: 250px;
+    margin: 5px;
+}

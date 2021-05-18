@@ -1,0 +1,11 @@
+<div *ngIf="userProfile" class="divs">
+    <button mat-mini-fab color="accent" area-label="Example">
+        <mat-icon>home</mat-icon>
+    </button>
+    <span  class="user-icon">{{userProfile.initials}}</span>
+    <button (click)="logoutUser()">Logout</button>
+</div>
+
+<div *ngIf="!userProfile">
+    <button>Login</button>
+</div>

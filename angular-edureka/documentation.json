@@ -1,0 +1,2708 @@
+{
+    "pipes": [],
+    "interfaces": [
+        {
+            "name": "IProfile",
+            "id": "interface-IProfile-28937186f6d5197f7b95d6b7e4984b86",
+            "file": "src/app/components/user-profile/user-profile.component.ts",
+            "type": "interface",
+            "sourceCode": "import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component,EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';\n\n\ninterface IProfile{\n  name :string,\n    number:number,\n    age:number,\n    initials:string\n}\n@Component({\n  selector: 'edureka-user-profile',\n  templateUrl: './user-profile.component.html',\n  styleUrls: ['./user-profile.component.css'],\n  changeDetection : ChangeDetectionStrategy.OnPush\n})\nexport class UserProfileComponent implements OnInit,OnChanges,OnDestroy,AfterContentChecked,AfterContentInit,AfterViewChecked,AfterViewInit {\n//  @Input() profile: IProfile|null =null;\n@Input(\"profile\") userProfile: IProfile|null =null;\n\n@Output() logout = new EventEmitter();\n  timer: number;\nconstructor() { }\n\n  ngOnChanges(){\n    console.log(\"ngOnChanges\");\n  }\n  ngOnInit(): void {\n    // console.log(this.profile)\n    // console.log(this.userProfile)\n  //API request\n  //Setup data\n  console.log(\"ngOnInit\");\n  this.timer=setInterval(function(){console.log(\"hello\"),1000})\n  }\n  ngOnDestroy(){\n   clearInterval(this.timer)\n   console.log(\"ngDestroy\");\n  }\n  ngAfterContentChecked(){\n    console.log(\"AfterContentChecked\");\n  }\n  ngAfterContentInit(){\n    console.log(\"AfterContentInit\");\n  }\n  ngAfterViewChecked(){\n    console.log(\"AfterViewdChecked\");\n  }\n  ngAfterViewInit(){\n    console.log(\"AfterViewInit\");\n  }\nlogoutUser(){\n  // this.logout.emit();\n  this.logout.emit(\"random text\");\n}\n}\n",
+            "properties": [
+                {
+                    "name": "age",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                },
+                {
+                    "name": "initials",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
+                },
+                {
+                    "name": "name",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                },
+                {
+                    "name": "number",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        }
+    ],
+    "injectables": [
+        {
+            "name": "AccountService",
+            "id": "injectable-AccountService-b3b04e67773f32d08c5452f8252b54cf",
+            "file": "src/app/services/account.service.ts",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "login",
+                    "args": [
+                        {
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 11,
+                    "jsdoctags": [
+                        {
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "register",
+                    "args": [
+                        {
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 17,
+                    "jsdoctags": [
+                        {
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "description": "",
+            "sourceCode": "import { HttpClient } from '@angular/common/http';\nimport { Injectable } from '@angular/core';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class AccountService {\n\n  constructor(private http : HttpClient) { }\n\n    login({ username, password })\n      {\n          this.http.post(\"http://localhost:3000/login\", { username, password }).subscribe((response)=>{\n              console.log(response);\n          })\n      }\n      register({ email, username, password }) {\n        this.http.post(\"http://localhost:3000/register\", { username, password, email }).subscribe((response) => {\n          console.log(response);\n        })\n      }\n}",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "http",
+                        "type": "HttpClient"
+                    }
+                ],
+                "line": 7,
+                "jsdoctags": [
+                    {
+                        "name": "http",
+                        "type": "HttpClient",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "type": "injectable"
+        },
+        {
+            "name": "ProfileService",
+            "id": "injectable-ProfileService-c23af2de7a27d591eab0522d7a0ac974",
+            "file": "src/app/services/profile.service.ts",
+            "properties": [
+                {
+                    "name": "userprofiles",
+                    "defaultValue": "new BehaviorSubject(null)",
+                    "type": "BehaviorSubject<any>",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "userProfileSelected",
+                    "defaultValue": "new BehaviorSubject(null)",
+                    "type": "BehaviorSubject<any>",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                }
+            ],
+            "methods": [
+                {
+                    "name": "addUserProfile",
+                    "args": [
+                        {
+                            "name": "profile",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 32,
+                    "jsdoctags": [
+                        {
+                            "name": "profile",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "deleteUser",
+                    "args": [
+                        {
+                            "name": "profile",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 43,
+                    "jsdoctags": [
+                        {
+                            "name": "profile",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getProfiles",
+                    "args": [
+                        {
+                            "name": "limit",
+                            "type": "",
+                            "optional": true
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 17,
+                    "jsdoctags": [
+                        {
+                            "name": "limit",
+                            "type": "",
+                            "optional": true,
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "selectUserProfile",
+                    "args": [
+                        {
+                            "name": "profile",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 58,
+                    "jsdoctags": [
+                        {
+                            "name": "profile",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "updateUser",
+                    "args": [
+                        {
+                            "name": "profile",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 51,
+                    "jsdoctags": [
+                        {
+                            "name": "profile",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "description": "",
+            "sourceCode": "import { HttpClient } from '@angular/common/http';\nimport { Injectable } from '@angular/core';\nimport { BehaviorSubject } from 'rxjs';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class ProfileService {\n\n  userProfileSelected: BehaviorSubject<any> = new BehaviorSubject(null);\n  userprofiles: BehaviorSubject<any> = new BehaviorSubject(null);\n\n  constructor(private http: HttpClient) { }\n\n\n\n  getProfiles(limit?) {\n    // return this.userprofiles.splice(0, limit);\n\n    // CRUD\n    // Create - POST\n    // Read   - GET\n    // Update - PATCH or PUT\n    // Delete - DELETE\n\n    return this.http.get(\"http://localhost:3000/profiles\")\n      .subscribe((response) => {\n        this.userprofiles.next(response)\n      })\n  }\n\n  addUserProfile(profile) {\n    this.http.post(\"http://localhost:3000/profiles\", profile)\n      .toPromise().then(() => {\n        this.getProfiles()\n      })\n\n    // .subscribe(()=>{\n    //     this.getProfiles()\n    // })\n  }\n\n  deleteUser(profile) {\n    console.log(profile);\n    this.http.delete(`http://localhost:3000/profiles/${profile.id}`).subscribe(() => {\n      this.getProfiles()\n    })\n  }\n\n\n  updateUser(profile) {\n    console.log(profile);\n    this.http.put(`http://localhost:3000/profiles/${profile.id}`, profile).subscribe(() => {\n      this.getProfiles()\n    })\n  }\n\n  selectUserProfile(profile) {\n    this.userProfileSelected.next(profile);\n  }\n\n}\n\n// profile = new ProfileService()",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "http",
+                        "type": "HttpClient"
+                    }
+                ],
+                "line": 11,
+                "jsdoctags": [
+                    {
+                        "name": "http",
+                        "type": "HttpClient",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "type": "injectable"
+        }
+    ],
+    "classes": [
+        {
+            "name": "AppPage",
+            "id": "class-AppPage-359dd9cf33c22f282b6e63c7f5e72e2b",
+            "file": "e2e/src/app.po.ts",
+            "type": "class",
+            "sourceCode": "import { browser, by, element } from 'protractor';\n\nexport class AppPage {\n  async navigateTo(): Promise<unknown> {\n    return browser.get(browser.baseUrl);\n  }\n\n  async getTitleText(): Promise<string> {\n    return element(by.css('edureka-root .content span')).getText();\n  }\n}\n",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "getTitleText",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Promise<string>",
+                    "typeParameters": [],
+                    "line": 8,
+                    "modifierKind": [
+                        120
+                    ]
+                },
+                {
+                    "name": "navigateTo",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Promise<unknown>",
+                    "typeParameters": [],
+                    "line": 4,
+                    "modifierKind": [
+                        120
+                    ]
+                }
+            ],
+            "indexSignatures": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": []
+        }
+    ],
+    "directives": [],
+    "components": [
+        {
+            "name": "AddNewProfileComponent",
+            "id": "component-AddNewProfileComponent-bd7dc3dc5fb1044248f2207d8741c86a",
+            "file": "src/app/modules/ui-components/components/add-new-profile/add-new-profile.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-add-new-profile",
+            "styleUrls": [
+                "./add-new-profile.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./add-new-profile.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "adduserprofile",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 10,
+                    "type": "EventEmitter<any>"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "user",
+                    "defaultValue": "{\n    name: \"\",\n    address: \"\",\n    picture: \"\"\n  }",
+                    "type": "object",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "addUserProfile",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 23
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 20
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, Output,EventEmitter} from '@angular/core';\n\n@Component({\n  selector: 'edureka-add-new-profile',\n  templateUrl: './add-new-profile.component.html',\n  styleUrls: ['./add-new-profile.component.css']\n})\nexport class AddNewProfileComponent implements OnInit {\n\n  @Output() adduserprofile: EventEmitter<any> = new EventEmitter();\n\n  user = {\n    name: \"\",\n    address: \"\",\n    picture: \"\"\n  }\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n  addUserProfile() {\n      this.adduserprofile.emit(this.user)\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./add-new-profile.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 16
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<p>\n    <label>\n        name\n        <input [(ngModel)]=\"user.name\" />\n    </label>\n</p>\n\n<p>\n    <label>\n        picture\n        <input [(ngModel)]=\"user.picture\" />\n    </label>\n</p>\n\n<p>\n    <label>\n        address\n        <input [(ngModel)]=\"user.address\" />\n    </label>\n</p>\n<p>\n    <button (click)=\"addUserProfile()\">Add User Profile</button>\n</p>"
+        },
+        {
+            "name": "AppComponent",
+            "id": "component-AppComponent-8ada9c602086e5e9a5f4f9cafd72c984",
+            "file": "src/app/app.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-root",
+            "styleUrls": [
+                "./app.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./app.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "title",
+                    "defaultValue": "'angular-edureka'",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                },
+                {
+                    "name": "userprofiles",
+                    "defaultValue": "[]",
+                    "type": "[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "deleteUser",
+                    "args": [
+                        {
+                            "name": "profile",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 29,
+                    "jsdoctags": [
+                        {
+                            "name": "profile",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 18
+                },
+                {
+                    "name": "profileSelected",
+                    "args": [
+                        {
+                            "name": "profile",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 25,
+                    "jsdoctags": [
+                        {
+                            "name": "profile",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { ProfileService } from './services/profile.service';\n\n@Component({\n  selector: 'edureka-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.css']\n})\nexport class AppComponent {\n  title = 'angular-edureka';\n \n  userprofiles = [];\n\n  constructor(private profiles: ProfileService) {\n\n  }\n\n  ngOnInit() {\n    this.profiles.getProfiles(); \n    this.profiles.userprofiles.subscribe((response: any) => {\n      this.userprofiles = response\n    })\n  }\n\n  profileSelected(profile) {\n    this.profiles.selectUserProfile(profile)\n  }\n\n  deleteUser(profile)\n    {\n      this.profiles.deleteUser(profile)\n    }\n\n}",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "*{\r\n    background-color: aquamarine;\r\n}",
+                    "styleUrl": "./app.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "profiles",
+                        "type": "ProfileService"
+                    }
+                ],
+                "line": 12,
+                "jsdoctags": [
+                    {
+                        "name": "profiles",
+                        "type": "ProfileService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "templateData": "<edureka-header></edureka-header>\r\n<div class=\"container\">\r\n    <edureka-photo-grid [profiles]=\"userprofiles\" (deleteuser)=\"deleteUser($event)\" (profileselected)=\"profileSelected($event)\"></edureka-photo-grid>\r\n</div>\r\n<edureka-home-page></edureka-home-page>"
+        },
+        {
+            "name": "ButtonComponent",
+            "id": "component-ButtonComponent-642c6c4e474cd5a0ac760dfda26b2fc9",
+            "file": "src/stories/button.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-button",
+            "styleUrls": [
+                "./button.css"
+            ],
+            "styles": [],
+            "template": "<button   type=\"button\"\n   (click)=\"onClick.emit($event)\"\n   [ngClass]=\"classes\"\n   [ngStyle]=\"{ 'background-color': backgroundColor }\"\n >\n   {{ label }}\n </button>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "backgroundColor",
+                    "description": "<p>What background color to use</p>\n",
+                    "line": 26,
+                    "type": "string"
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "'Button'",
+                    "description": "<p>Button contents</p>\n",
+                    "line": 40
+                },
+                {
+                    "name": "primary",
+                    "defaultValue": "false",
+                    "description": "<p>Is this the principal call to action on the page?</p>\n",
+                    "line": 20
+                },
+                {
+                    "name": "size",
+                    "defaultValue": "'medium'",
+                    "description": "<p>How large should the button be?</p>\n",
+                    "line": 32,
+                    "type": "\"small\" | \"medium\" | \"large\""
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "onClick",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "description": "<p>Optional click handler</p>\n",
+                    "line": 46,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-button',\n  template: ` <button\n    type=\"button\"\n    (click)=\"onClick.emit($event)\"\n    [ngClass]=\"classes\"\n    [ngStyle]=\"{ 'background-color': backgroundColor }\"\n  >\n    {{ label }}\n  </button>`,\n  styleUrls: ['./button.css'],\n})\nexport default class ButtonComponent {\n  /**\n   * Is this the principal call to action on the page?\n   */\n  @Input()\n  primary = false;\n\n  /**\n   * What background color to use\n   */\n  @Input()\n  backgroundColor?: string;\n\n  /**\n   * How large should the button be?\n   */\n  @Input()\n  size: 'small' | 'medium' | 'large' = 'medium';\n\n  /**\n   * Button contents\n   *\n   * @required\n   */\n  @Input()\n  label = 'Button';\n\n  /**\n   * Optional click handler\n   */\n  @Output()\n  onClick = new EventEmitter<Event>();\n\n  public get classes(): string[] {\n    const mode = this.primary ? 'storybook-button--primary' : 'storybook-button--secondary';\n\n    return ['storybook-button', `storybook-button--${this.size}`, mode];\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".storybook-button {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  font-weight: 700;\n  border: 0;\n  border-radius: 3em;\n  cursor: pointer;\n  display: inline-block;\n  line-height: 1;\n}\n.storybook-button--primary {\n  color: white;\n  background-color: #1ea7fd;\n}\n.storybook-button--secondary {\n  color: #333;\n  background-color: transparent;\n  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;\n}\n.storybook-button--small {\n  font-size: 12px;\n  padding: 10px 16px;\n}\n.storybook-button--medium {\n  font-size: 14px;\n  padding: 11px 20px;\n}\n.storybook-button--large {\n  font-size: 16px;\n  padding: 12px 24px;\n}\n",
+                    "styleUrl": "./button.css"
+                }
+            ],
+            "stylesData": "",
+            "accessors": {
+                "classes": {
+                    "name": "classes",
+                    "getSignature": {
+                        "name": "classes",
+                        "type": "[]",
+                        "returnType": "string[]",
+                        "line": 48
+                    }
+                }
+            }
+        },
+        {
+            "name": "DatagridComponent",
+            "id": "component-DatagridComponent-0b42ac2b3e7bba1ec187fa94a06e4429",
+            "file": "src/app/components/datagrid/datagrid.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-datagrid",
+            "styleUrls": [
+                "./datagrid.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./datagrid.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'edureka-datagrid',\n  templateUrl: './datagrid.component.html',\n  styleUrls: ['./datagrid.component.css']\n})\nexport class DatagridComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./datagrid.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 8
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<p>datagrid works!</p>\n"
+        },
+        {
+            "name": "DatagridComponent",
+            "id": "component-DatagridComponent-0b42ac2b3e7bba1ec187fa94a06e4429-1",
+            "file": "src/app/modules/ui-components/components/datagrid/datagrid.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-datagrid",
+            "styleUrls": [
+                "./datagrid.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./datagrid.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'edureka-datagrid',\n  templateUrl: './datagrid.component.html',\n  styleUrls: ['./datagrid.component.css']\n})\nexport class DatagridComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./datagrid.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 8
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "isDuplicate": true,
+            "duplicateId": 1,
+            "duplicateName": "DatagridComponent-1",
+            "templateData": "<p>datagrid works!</p>\n"
+        },
+        {
+            "name": "HeaderComponent",
+            "id": "component-HeaderComponent-246e2a69dc126a3bd76c6328dd3b93e2",
+            "file": "src/stories/header.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-header",
+            "styleUrls": [
+                "./header.css"
+            ],
+            "styles": [],
+            "template": "<header>    <div class=\"wrapper\">\n      <div>\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\n              fill=\"#FFF\"\n            />\n            <path\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\n              fill=\"#555AB9\"\n            />\n            <path\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\n              fill=\"#91BAF8\"\n            />\n          </g>\n        </svg>\n        <h1>Acme</h1>\n      </div>\n      <div>\n        <storybook-button\n          *ngIf=\"user\"\n          size=\"small\"\n          (onClick)=\"onLogout.emit($event)\"\n          label=\"Log out\"\n        ></storybook-button>\n        <storybook-button\n          *ngIf=\"!user\"\n          size=\"small\"\n          (onClick)=\"onLogin.emit($event)\"\n          label=\"Log in\"\n        ></storybook-button>\n        <storybook-button\n          *ngIf=\"!user\"\n          primary\n          size=\"small\"\n          (onClick)=\"onCreateAccount.emit($event)\"\n          label=\"Sign up\"\n        ></storybook-button>\n      </div>\n    </div>\n  </header>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "user",
+                    "defaultValue": "null",
+                    "line": 53,
+                    "type": "unknown"
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "onCreateAccount",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 62,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "onLogin",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 56,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "onLogout",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 59,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-header',\n  template: `<header>\n    <div class=\"wrapper\">\n      <div>\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\n              fill=\"#FFF\"\n            />\n            <path\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\n              fill=\"#555AB9\"\n            />\n            <path\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\n              fill=\"#91BAF8\"\n            />\n          </g>\n        </svg>\n        <h1>Acme</h1>\n      </div>\n      <div>\n        <storybook-button\n          *ngIf=\"user\"\n          size=\"small\"\n          (onClick)=\"onLogout.emit($event)\"\n          label=\"Log out\"\n        ></storybook-button>\n        <storybook-button\n          *ngIf=\"!user\"\n          size=\"small\"\n          (onClick)=\"onLogin.emit($event)\"\n          label=\"Log in\"\n        ></storybook-button>\n        <storybook-button\n          *ngIf=\"!user\"\n          primary\n          size=\"small\"\n          (onClick)=\"onCreateAccount.emit($event)\"\n          label=\"Sign up\"\n        ></storybook-button>\n      </div>\n    </div>\n  </header>`,\n  styleUrls: ['./header.css'],\n})\nexport default class HeaderComponent {\n  @Input()\n  user: unknown = null;\n\n  @Output()\n  onLogin = new EventEmitter<Event>();\n\n  @Output()\n  onLogout = new EventEmitter<Event>();\n\n  @Output()\n  onCreateAccount = new EventEmitter<Event>();\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".wrapper {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n  padding: 15px 20px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n\nsvg {\n  display: inline-block;\n  vertical-align: top;\n}\n\nh1 {\n  font-weight: 900;\n  font-size: 20px;\n  line-height: 1;\n  margin: 6px 0 6px 10px;\n  display: inline-block;\n  vertical-align: top;\n}\n\nbutton + button {\n  margin-left: 10px;\n}\n",
+                    "styleUrl": "./header.css"
+                }
+            ],
+            "stylesData": ""
+        },
+        {
+            "name": "HeaderComponent",
+            "id": "component-HeaderComponent-bdce76561284cd3edcd6d52f23a5f3c0-1",
+            "file": "src/app/components/header/header.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-header",
+            "styleUrls": [
+                "./header.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./header.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "toggleUserProfile",
+                    "defaultValue": "true",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 25
+                },
+                {
+                    "name": "userprofile",
+                    "defaultValue": "{\n    name :\"gayu\",\n    number:12345677,\n    age:22,\n    initials:\"gs\"\n  }",
+                    "type": "object",
+                    "optional": false,
+                    "description": "",
+                    "line": 11,
+                    "modifierKind": [
+                        114
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "changeName",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21
+                },
+                {
+                    "name": "ChangeRef",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 36
+                },
+                {
+                    "name": "ChangeValue",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 33
+                },
+                {
+                    "name": "clearProfileData",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 28,
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getUserProfile",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "{ name: string; number: number; age: number; initials: string; }",
+                    "typeParameters": [],
+                    "line": 17
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 26
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'edureka-header',\n  templateUrl: './header.component.html',\n  styleUrls: ['./header.component.css']\n})\n\nexport class HeaderComponent implements OnInit {\n\n  public userprofile={\n    name :\"gayu\",\n    number:12345677,\n    age:22,\n    initials:\"gs\"\n  }\n  getUserProfile()\n  {\n    return this.userprofile;\n  }\n  changeName(){\n    this.userprofile.name=\"scibi\";\n  }\n  constructor() { }\n  toggleUserProfile=true;\n  ngOnInit(): void {\n  }\n  clearProfileData(event){\n    //this.userprofile=null;\n\n   this.userprofile.initials=event;\n  }\n  ChangeValue(){\n    this.userprofile.initials=\"scibi\"\n  }\n  ChangeRef(){\n    this.userprofile={...this.userprofile, initials:\"Hello\"}\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "/* .header {\r\n    background-color: aquamarine;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    height: 40px;\r\n} */\r\n.nav-row {\r\n    justify-content: space-between;\r\n}",
+                    "styleUrl": "./header.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 23
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "isDuplicate": true,
+            "duplicateId": 1,
+            "duplicateName": "HeaderComponent-1",
+            "templateData": "<mat-toolbar color=\"primary\">\n  <mat-toolbar-row class=\"nav-row\">\n      <edureka-navigation></edureka-navigation>\n      <edureka-user-profile *ngIf=\"toggleUserProfile\" (logout)=\"clearProfileData($event)\"[profile]=\"userprofile\"></edureka-user-profile>\n  </mat-toolbar-row>\n</mat-toolbar>\n<edureka-photo-grid></edureka-photo-grid>\n<!-- <edureka-navigation></edureka-navigation>\n<edureka-user-profile *ngIf=\"toggleUserProfile\" (logout)=\"clearProfileData($event)\"[profile]=\"userprofile\"></edureka-user-profile>\n\n<input [(ngModel)]=\"userprofile.initials\">\n{{userprofile.initials}}\n\n<button (click)=\"ChangeValue()\">Change Value</button>\n<button (click)=\"ChangeRef()\">Change Ref</button> -->\n\n\n<!-- <edureka-user-profile [profile]=\"userprofile\"></edureka-user-profile> -->\n\n<!-- {{userprofile.name}}//property binding and string interpolation\n\n{{getUserProfile().number}}//method -->\n\n<!-- {{1+1}}//runs the javascript code as it is -->\n\n<!-- {{userprofile.name}}\n<button (click)=\"changeName()\">Change Name</button>//event binding -->\n\n<!-- {{userprofile.name}}\n<input [(ngModel)]=\"userprofile.name\"/> //two way binding -->"
+        },
+        {
+            "name": "HomePageComponent",
+            "id": "component-HomePageComponent-d171153612575183f71ff048eb4fe653",
+            "file": "src/app/pages/home-page/home-page.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-home-page",
+            "styleUrls": [
+                "./home-page.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./home-page.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "addUserProfile",
+                    "args": [
+                        {
+                            "name": "profile",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 15,
+                    "jsdoctags": [
+                        {
+                            "name": "profile",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { ProfileService } from 'src/app/services/profile.service';\n@Component({\n  selector: 'edureka-home-page',\n  templateUrl: './home-page.component.html',\n  styleUrls: ['./home-page.component.css']\n})\nexport class HomePageComponent implements OnInit {\n\n  constructor(private profile : ProfileService) { }\n\n  ngOnInit(): void {\n  }\n\n  addUserProfile(profile)\n  {\n      this.profile.addUserProfile(profile)\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./home-page.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "profile",
+                        "type": "ProfileService"
+                    }
+                ],
+                "line": 8,
+                "jsdoctags": [
+                    {
+                        "name": "profile",
+                        "type": "ProfileService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<!-- <edureka-add-new-profile (adduserprofile)=\"addUserProfile($event)\"></edureka-add-new-profile> -->\n<edureka-login-form></edureka-login-form>\n------------\n<edureka-register-form></edureka-register-form>"
+        },
+        {
+            "name": "ListingComponent",
+            "id": "component-ListingComponent-49d118c2d12c9bd79331249cd00630b6",
+            "file": "src/app/components/listing/listing.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-listing",
+            "styleUrls": [
+                "./listing.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./listing.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'edureka-listing',\n  templateUrl: './listing.component.html',\n  styleUrls: ['./listing.component.css']\n})\nexport class ListingComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./listing.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 8
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<p>listing works!</p>\n"
+        },
+        {
+            "name": "LoginFormComponent",
+            "id": "component-LoginFormComponent-2b4af309ef4c231eb9639b64decff186",
+            "file": "src/app/forms/login-form/login-form.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-login-form",
+            "styleUrls": [
+                "./login-form.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./login-form.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "form",
+                    "defaultValue": "{\n    username : \"\",\n    password : \"\"\n  }",
+                    "type": "object",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "login",
+                    "args": [
+                        {
+                            "name": "form",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "jsdoctags": [
+                        {
+                            "name": "form",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 18
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { AccountService } from 'src/app/services/account.service';\n\n@Component({\n  selector: 'edureka-login-form',\n  templateUrl: './login-form.component.html',\n  styleUrls: ['./login-form.component.css']\n})\nexport class LoginFormComponent implements OnInit {\n\n  form = {\n    username : \"\",\n    password : \"\"\n  }\n\n  constructor(private account : AccountService) { }\n\n  ngOnInit(): void {\n  }\n\n  login(form)\n    {\n      this.account.login(form.value);\n    }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".form{\r\n    padding: 15px;\r\n}",
+                    "styleUrl": "./login-form.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "account",
+                        "type": "AccountService"
+                    }
+                ],
+                "line": 14,
+                "jsdoctags": [
+                    {
+                        "name": "account",
+                        "type": "AccountService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<form #loginForm=\"ngForm\" (ngSubmit)=\"login(loginForm)\">\n    <p>\n        <label>\n            Username\n            <input [(ngModel)]=\"form.username\" #username=\"ngModel\" name=\"username\" required/>\n        </label>\n        <span class=\"form-errors\" *ngIf=\"username.errors && username.touched\">\n            <span>This is a required value.</span>\n        </span>\n    </p>\n    <p>\n        <label>\n            Password\n            <input type=\"password\" [(ngModel)]=\"form.password\" #password=\"ngModel\" name=\"password\" required minlength=\"8\"/>\n        </label>\n        <span class=\"form-errors\" *ngIf=\"password.errors && password.touched\">\n            <span *ngIf=\"password.errors.required\">This is a required value.</span>\n            <span *ngIf=\"password.errors.minlength\">Please provide 8 chars</span>\n        </span>\n    </p>\n    <button [disabled]=\"loginForm.status === 'INVALID'\" type=\"submit\">Login</button>\n</form>"
+        },
+        {
+            "name": "NavigationComponent",
+            "id": "component-NavigationComponent-20e612482f73433040dc5b78b57e3f1e",
+            "file": "src/app/components/navigation/navigation.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-navigation",
+            "styleUrls": [
+                "./navigation.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./navigation.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'edureka-navigation',\n  templateUrl: './navigation.component.html',\n  styleUrls: ['./navigation.component.css']\n})\nexport class NavigationComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "ul {\r\n    list-style: none;\r\n    margin : 0;\r\n    padding: 0;\r\n    display: flex;\r\n    flex-direction: row;\r\n    }\r\n   ul li {\r\n        margin-right : 5px;\r\n   }\r\n   a{\r\n       margin-right: 10px;\r\n   }\r\n   ",
+                    "styleUrl": "./navigation.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 8
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "\n<!-- <ul>\n    <li>Home</li>\n    <li>Products</li>\n    <li>Services</li>\n    <li>About Use</li>\n    <li>Contact Us</li>\n</ul> -->\n\n<div>\n    <a mat-button>Home</a>\n    <a mat-button>AboutUs</a>\n    <a mat-button>Products</a>\n    <a mat-button>Services</a>\n    <a mat-button>ContactUs</a>\n    <a mat-button>Home</a>\n</div>\n"
+        },
+        {
+            "name": "PageComponent",
+            "id": "component-PageComponent-8f196770333aa216860a88c0b6b221aa",
+            "file": "src/stories/page.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-page",
+            "styleUrls": [
+                "./page.css"
+            ],
+            "styles": [],
+            "template": "<article>    <storybook-header\n      [user]=\"user\"\n      (onLogout)=\"onLogout.emit($event)\"\n      (onLogin)=\"onLogin.emit($event)\"\n      (onCreateAccount)=\"onCreateAccount.emit($event)\"\n    ></storybook-header>\n    <section>\n      <h2>Pages in Storybook</h2>\n      <p>\n        We recommend building UIs with a\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <strong>component-driven</strong>\n        </a>\n        process starting with atomic components and ending with pages.\n      </p>\n      <p>\n        Render pages with mock data. This makes it easy to build and review page states without\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\n        in Storybook:\n      </p>\n      <ul>\n        <li>\n          Use a higher-level connected component. Storybook helps you compose such data from the\n          \"args\" of child component stories\n        </li>\n        <li>\n          Assemble data in the page component from your services. You can mock these services out\n          using Storybook.\n        </li>\n      </ul>\n      <p>\n        Get a guided tutorial on component-driven development at\n        <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Storybook tutorials\n        </a>\n        . Read more in the\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\n        .\n      </p>\n      <div class=\"tip-wrapper\">\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n              id=\"a\"\n              fill=\"#999\"\n            />\n          </g>\n        </svg>\n        Viewports addon in the toolbar\n      </div>\n    </section>\n  </article>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "user",
+                    "defaultValue": "null",
+                    "line": 64,
+                    "type": "unknown"
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "onCreateAccount",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 73,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "onLogin",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 67,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "onLogout",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 70,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-page',\n  template: `<article>\n    <storybook-header\n      [user]=\"user\"\n      (onLogout)=\"onLogout.emit($event)\"\n      (onLogin)=\"onLogin.emit($event)\"\n      (onCreateAccount)=\"onCreateAccount.emit($event)\"\n    ></storybook-header>\n    <section>\n      <h2>Pages in Storybook</h2>\n      <p>\n        We recommend building UIs with a\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <strong>component-driven</strong>\n        </a>\n        process starting with atomic components and ending with pages.\n      </p>\n      <p>\n        Render pages with mock data. This makes it easy to build and review page states without\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\n        in Storybook:\n      </p>\n      <ul>\n        <li>\n          Use a higher-level connected component. Storybook helps you compose such data from the\n          \"args\" of child component stories\n        </li>\n        <li>\n          Assemble data in the page component from your services. You can mock these services out\n          using Storybook.\n        </li>\n      </ul>\n      <p>\n        Get a guided tutorial on component-driven development at\n        <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Storybook tutorials\n        </a>\n        . Read more in the\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\n        .\n      </p>\n      <div class=\"tip-wrapper\">\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n              id=\"a\"\n              fill=\"#999\"\n            />\n          </g>\n        </svg>\n        Viewports addon in the toolbar\n      </div>\n    </section>\n  </article>`,\n  styleUrls: ['./page.css'],\n})\nexport default class PageComponent {\n  @Input()\n  user: unknown = null;\n\n  @Output()\n  onLogin = new EventEmitter<Event>();\n\n  @Output()\n  onLogout = new EventEmitter<Event>();\n\n  @Output()\n  onCreateAccount = new EventEmitter<Event>();\n}\n\n// export const Page = ({ user, onLogin, onLogout, onCreateAccount }) => (\n//   <article>\n//     <Header user={user} onLogin={onLogin} onLogout={onLogout} onCreateAccount={onCreateAccount} />\n\n// );\n// Page.propTypes = {\n//   user: PropTypes.shape({}),\n//   onLogin: PropTypes.func.isRequired,\n//   onLogout: PropTypes.func.isRequired,\n//   onCreateAccount: PropTypes.func.isRequired,\n// };\n\n// Page.defaultProps = {\n//   user: null,\n// };\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "section {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  line-height: 24px;\n  padding: 48px 20px;\n  margin: 0 auto;\n  max-width: 600px;\n  color: #333;\n}\n\nh2 {\n  font-weight: 900;\n  font-size: 32px;\n  line-height: 1;\n  margin: 0 0 4px;\n  display: inline-block;\n  vertical-align: top;\n}\n\np {\n  margin: 1em 0;\n}\n\na {\n  text-decoration: none;\n  color: #1ea7fd;\n}\n\nul {\n  padding-left: 30px;\n  margin: 1em 0;\n}\n\nli {\n  margin-bottom: 8px;\n}\n\n.tip {\n  display: inline-block;\n  border-radius: 1em;\n  font-size: 11px;\n  line-height: 12px;\n  font-weight: 700;\n  background: #e7fdd8;\n  color: #66bf3c;\n  padding: 4px 12px;\n  margin-right: 10px;\n  vertical-align: top;\n}\n\n.tip-wrapper {\n  font-size: 13px;\n  line-height: 20px;\n  margin-top: 40px;\n  margin-bottom: 40px;\n}\n\n.tip-wrapper svg {\n  display: inline-block;\n  height: 12px;\n  width: 12px;\n  margin-right: 4px;\n  vertical-align: top;\n  margin-top: 3px;\n}\n\n.tip-wrapper svg path {\n  fill: #1ea7fd;\n}\n",
+                    "styleUrl": "./page.css"
+                }
+            ],
+            "stylesData": ""
+        },
+        {
+            "name": "PhotoGridComponent",
+            "id": "component-PhotoGridComponent-29e940e471292f2c4bbadc6c6117f4a4",
+            "file": "src/app/modules/ui-components/components/photo-grid/photo-grid.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-photo-grid",
+            "styleUrls": [
+                "./photo-grid.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./photo-grid.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "profiles",
+                    "defaultValue": "[]",
+                    "line": 10
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "deleteuser",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 13,
+                    "type": "EventEmitter<any>"
+                },
+                {
+                    "name": "profileselected",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 12,
+                    "type": "EventEmitter<any>"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "deleteUser",
+                    "args": [
+                        {
+                            "name": "profile",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 25,
+                    "jsdoctags": [
+                        {
+                            "name": "profile",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 17
+                },
+                {
+                    "name": "selectuser",
+                    "args": [
+                        {
+                            "name": "profile",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 20,
+                    "jsdoctags": [
+                        {
+                            "name": "profile",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component,EventEmitter, Input, OnInit, Output } from '@angular/core';\n\n\n@Component({\n  selector: 'edureka-photo-grid',\n  templateUrl: './photo-grid.component.html',\n  styleUrls: ['./photo-grid.component.css']\n})\nexport class PhotoGridComponent implements OnInit {\n  @Input() profiles = [];\n\n  @Output() profileselected : EventEmitter<any> = new EventEmitter();\n  @Output() deleteuser : EventEmitter<any> = new EventEmitter()\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n  selectuser(profile)\n    {\n        this.profileselected.emit(profile)\n    }\n\n    deleteUser(profile){\n        this.deleteuser.emit(profile)\n    }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".photogrid {\r\n    margin: 10px;\r\n    padding: 10px;\r\n    display: flex;\r\n    flex-direction: row;\r\n    flex-wrap: wrap;\r\n}\r\n.photogrid > mat-card {\r\n    width: 250px;\r\n    margin: 5px;\r\n}",
+                    "styleUrl": "./photo-grid.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 13
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"photogrid\">\n    <mat-card *ngFor=\"let profile of profiles\">\n        <mat-card-header>\n            <mat-card-title>{{profile.name}}</mat-card-title>\n        </mat-card-header>\n        <img mat-card-image src=\"{{profile.picture}}\" />\n        <mat-card-content>\n            <p>{{profile.address}}</p>\n        </mat-card-content>\n        <mat-card-actions>\n            <button mat-button>Edit</button>\n            <button mat-button (click)=\"deleteUser(profile)\">Delete</button>\n            <button mat-button (click)=\"selectuser(profile)\">More Info</button>\n        </mat-card-actions>\n    </mat-card>\n</div>"
+        },
+        {
+            "name": "ProductListingComponent",
+            "id": "component-ProductListingComponent-114df1bdb124cabbee4b5f1174dd7323",
+            "file": "src/app/components/product-listing/product-listing.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-product-listing",
+            "styleUrls": [
+                "./product-listing.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./product-listing.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'edureka-product-listing',\n  templateUrl: './product-listing.component.html',\n  styleUrls: ['./product-listing.component.css']\n})\nexport class ProductListingComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./product-listing.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 8
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<p>product-listing works!</p>\n"
+        },
+        {
+            "name": "ProfileDetailsComponent",
+            "id": "component-ProfileDetailsComponent-666d0ac70e131ff412ee07c0ec2f6212",
+            "file": "src/app/modules/ui-components/components/profile-details/profile-details.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-profile-details",
+            "styleUrls": [
+                "./profile-details.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./profile-details.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "selectedProfile",
+                    "defaultValue": "null",
+                    "type": "null",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 34
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { ProfileService } from 'src/app/services/profile.service';\nimport {map}from 'rxjs/operators'\n@Component({\n  selector: 'edureka-profile-details',\n  templateUrl: './profile-details.component.html',\n  styleUrls: ['./profile-details.component.css']\n})\nexport class ProfileDetailsComponent implements OnInit {\n\n  constructor(private profile : ProfileService) { }\nselectedProfile=null;\n\n// Observables Demo\n\n    // const obOfArray = of([1, 2, 4])\n    // obOfArray\n    \n    // .subscribe((value)=>{\n    //   console.log(value, \"value\");\n    // })\n\n    // const obFromArray = from([\"1\", \"2\", \"3\"])\n    // .pipe(find(()=>{\n    //   return true;\n    // }))\n    // obFromArray.subscribe((value)=>{\n    //   console.log(value);\n    // })\n\n    // interval(1000).subscribe(()=>{\n    //     console.log(\"dasdjahsdhasjkda\")\n    // })\n  ngOnInit(): void {\n    // this.profile.userProfileSelected.subscribe((profile)=>{\n    // this.selectedProfile=profile;\n    // console.log(this.selectedProfile);\n    // })\n    this.profile.userProfileSelected\n\n      // .toPromise().then((profile) => {\n      //   this.selectedProfile = profile;\n      //   console.log(this.selectedProfile, \"selectedProfile\");\n      // })\n      .pipe(map((profile) => {\n        if (profile) {\n          profile.address = profile.address.toUpperCase();\n        }\n        return profile\n      }), map((profile) => {\n        if (profile) {\n          console.log(profile.address);\n        }\n        return profile\n      }))\n      .subscribe((profile) => {\n        this.selectedProfile = profile;\n        console.log(this.selectedProfile, \"selectedProfile\");\n      })\n\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./profile-details.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "profile",
+                        "type": "ProfileService"
+                    }
+                ],
+                "line": 9,
+                "jsdoctags": [
+                    {
+                        "name": "profile",
+                        "type": "ProfileService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "{{ selectedProfile.address }}\n"
+        },
+        {
+            "name": "RegisterFormComponent",
+            "id": "component-RegisterFormComponent-2de8db8da78672bdc0c3a355ce896c53",
+            "file": "src/app/forms/register-form/register-form.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-register-form",
+            "styleUrls": [
+                "./register-form.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./register-form.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "registerForm",
+                    "defaultValue": "new FormGroup({\n    username: new FormControl(\"dasdadasd\", [Validators.required, Validators.minLength(8)]),\n    email: new FormControl(\"\", [Validators.required, ProdaptEmail]),\n    // email : new FormControl(\"\", [Validators.required, Validators.pattern(/[a-z]@prodapt.com/)]),\n    password: new FormControl(\"\", [Validators.required, Validators.minLength(8)]),\n    confirmPassword: new FormControl(\"\", [Validators.required, Validators.minLength(8)]),\n    dept: new FormControl(\"\", [Validators.required]),\n    otherDept: new FormControl(\"\", [Validators.required])\n\n  }, [CompareValidator(\"password\", \"confirmPassword\")])",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "deptSelected",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 55
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 27
+                },
+                {
+                    "name": "register",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 43
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport {FormControl, FormGroup, Validators} from \"@angular/forms\"\nimport { AccountService } from 'src/app/services/account.service';\nimport { CompareValidator } from '../validators/compare';\nimport { ProdaptEmail } from '../validators/prodapt-email';\n@Component({\n  selector: 'edureka-register-form',\n  templateUrl: './register-form.component.html',\n  styleUrls: ['./register-form.component.css']\n})\nexport class RegisterFormComponent implements OnInit {\n\n  registerForm: FormGroup = new FormGroup({\n    username: new FormControl(\"dasdadasd\", [Validators.required, Validators.minLength(8)]),\n    email: new FormControl(\"\", [Validators.required, ProdaptEmail]),\n    // email : new FormControl(\"\", [Validators.required, Validators.pattern(/[a-z]@prodapt.com/)]),\n    password: new FormControl(\"\", [Validators.required, Validators.minLength(8)]),\n    confirmPassword: new FormControl(\"\", [Validators.required, Validators.minLength(8)]),\n    dept: new FormControl(\"\", [Validators.required]),\n    otherDept: new FormControl(\"\", [Validators.required])\n\n  }, [CompareValidator(\"password\", \"confirmPassword\")])\n\n\n  constructor(private account: AccountService) { }\n\n  ngOnInit(): void {\n\n    // HTTP Response\n    // const user = { email : \"abc@xyz.com\", username : \"abc\" };\n    // this.registerForm.setValue({\n    //   email : user.email,\n    //   username : user.username,\n    //   password : \"\",\n    //   confirmPassword : \"\",\n    // })\n\n    // this.registerForm.get(\"username\").setValue(\"new value\");\n\n\n  }\n\n  register() {\n\n    // const controls = Object.keys(this.registerForm.controls)\n    // controls.forEach((control)=>{\n    //     this.registerForm.get(control).markAsTouched()\n    // })\n\n    console.log(this.registerForm);\n    // this.account.register(this.registerForm.value)\n  }\n\n\n  deptSelected() {\n    const deptValue = this.registerForm.get(\"dept\").value;\n    console.log(deptValue);\n\n    console.log(deptValue !== \"OTHER\")\n\n    if (deptValue !== \"OTHER\") {\n      this.registerForm.get(\"otherDept\").clearValidators()\n      this.registerForm.get(\"otherDept\").updateValueAndValidity()\n    }\n    else {\n      this.registerForm.get(\"otherDept\").setValidators([Validators.required]);\n      this.registerForm.get(\"otherDept\").updateValueAndValidity()\n    }\n    this.registerForm.updateValueAndValidity();\n  }\n\n  get email() {\n    return this.registerForm.get(\"email\");\n  }\n\n  get username() {\n    return this.registerForm.get(\"username\");\n  }\n\n  get password() {\n    return this.registerForm.get(\"password\");\n  }\n\n  get confirmPassword() {\n    return this.registerForm.get(\"confirmPassword\");\n  }\n\n}",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./register-form.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "account",
+                        "type": "AccountService"
+                    }
+                ],
+                "line": 22,
+                "jsdoctags": [
+                    {
+                        "name": "account",
+                        "type": "AccountService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "accessors": {
+                "email": {
+                    "name": "email",
+                    "getSignature": {
+                        "name": "email",
+                        "type": "",
+                        "returnType": "",
+                        "line": 72
+                    }
+                },
+                "username": {
+                    "name": "username",
+                    "getSignature": {
+                        "name": "username",
+                        "type": "",
+                        "returnType": "",
+                        "line": 76
+                    }
+                },
+                "password": {
+                    "name": "password",
+                    "getSignature": {
+                        "name": "password",
+                        "type": "",
+                        "returnType": "",
+                        "line": 80
+                    }
+                },
+                "confirmPassword": {
+                    "name": "confirmPassword",
+                    "getSignature": {
+                        "name": "confirmPassword",
+                        "type": "",
+                        "returnType": "",
+                        "line": 84
+                    }
+                }
+            },
+            "templateData": "<form [formGroup]=\"registerForm\" (ngSubmit)=\"register()\" >\n    <p>\n        <label>\n            Username\n            <input name=\"username\" formControlName=\"username\" />\n        </label>\n        <!-- <span class=\"form-errors\" *ngIf=\"username.errors && username.touched\">\n            <span>This is a required value.</span>\n        </span> -->\n    </p>\n    <p>\n        <label>\n            Email\n            <input name=\"username\" formControlName=\"email\" />\n        </label>\n        <span class=\"form-errors\" *ngIf=\"email.errors && email.touched\">\n            <span>This is a required value.</span>\n        </span>\n    </p>\n    <p>\n        <label>\n            Password\n            <input type=\"password\" name=\"password\" formControlName=\"password\"/>\n        </label>\n        <!-- <span class=\"form-errors\" *ngIf=\"password.errors && password.touched\">\n            <span *ngIf=\"password.errors.required\">This is a required value.</span>\n            <span *ngIf=\"password.errors.minlength\">Please provide 8 chars</span>\n        </span> -->\n    </p>\n    <p>\n        <label>\n            Confirm Password\n            <input type=\"password\" name=\"confirm-password\" formControlName=\"confirmPassword\"/>\n        </label>\n        <span class=\"form-errors\" *ngIf=\"registerForm.errors && password.touched && confirmPassword.touched\">\n            <span *ngIf=\"registerForm.errors.compare\">Password and Confirm password should be matching</span>\n        </span>\n    </p>\n\n    <p>\n        <label>\n            Dept\n            <select name=\"dept\" formControlName=\"dept\" value=\"\" (change)=\"deptSelected()\">\n                <option>Select Dept</option>\n                <option value=\"IT\">IT</option>\n                <option value=\"HR\">HR</option>\n                <option value=OTHER>Other</option>\n            </select>\n        </label>\n        <span class=\"form-errors\" *ngIf=\"registerForm.errors && password.touched && confirmPassword.touched\">\n            <span *ngIf=\"registerForm.errors.compare\">Password and Confirm password should be matching</span>\n        </span>\n    </p>\n\n    <p>\n        <label>\n            Other Dept\n            <input type=\"password\" name=\"other-dept\" formControlName=\"otherDept\"/>\n        </label>\n        <span class=\"form-errors\" *ngIf=\"registerForm.errors && password.touched && confirmPassword.touched\">\n            <span *ngIf=\"registerForm.errors.compare\">Password and Confirm password should be matching</span>\n        </span>\n    </p>\n    <!-- [disabled]=\"loginForm.status === 'INVALID'\" -->\n    <button type=\"submit\">Register</button>\n</form>"
+        },
+        {
+            "name": "UserProfileComponent",
+            "id": "component-UserProfileComponent-28937186f6d5197f7b95d6b7e4984b86",
+            "file": "src/app/components/user-profile/user-profile.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "edureka-user-profile",
+            "styleUrls": [
+                "./user-profile.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./user-profile.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "profile",
+                    "defaultValue": "null",
+                    "line": 18,
+                    "type": "IProfile | null"
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "logout",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 20,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "timer",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 21
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "logoutUser",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 51
+                },
+                {
+                    "name": "ngAfterContentChecked",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 39
+                },
+                {
+                    "name": "ngAfterContentInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 42
+                },
+                {
+                    "name": "ngAfterViewChecked",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 45
+                },
+                {
+                    "name": "ngAfterViewInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 48
+                },
+                {
+                    "name": "ngOnChanges",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 24
+                },
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 35
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 27
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component,EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';\n\n\ninterface IProfile{\n  name :string,\n    number:number,\n    age:number,\n    initials:string\n}\n@Component({\n  selector: 'edureka-user-profile',\n  templateUrl: './user-profile.component.html',\n  styleUrls: ['./user-profile.component.css'],\n  changeDetection : ChangeDetectionStrategy.OnPush\n})\nexport class UserProfileComponent implements OnInit,OnChanges,OnDestroy,AfterContentChecked,AfterContentInit,AfterViewChecked,AfterViewInit {\n//  @Input() profile: IProfile|null =null;\n@Input(\"profile\") userProfile: IProfile|null =null;\n\n@Output() logout = new EventEmitter();\n  timer: number;\nconstructor() { }\n\n  ngOnChanges(){\n    console.log(\"ngOnChanges\");\n  }\n  ngOnInit(): void {\n    // console.log(this.profile)\n    // console.log(this.userProfile)\n  //API request\n  //Setup data\n  console.log(\"ngOnInit\");\n  this.timer=setInterval(function(){console.log(\"hello\"),1000})\n  }\n  ngOnDestroy(){\n   clearInterval(this.timer)\n   console.log(\"ngDestroy\");\n  }\n  ngAfterContentChecked(){\n    console.log(\"AfterContentChecked\");\n  }\n  ngAfterContentInit(){\n    console.log(\"AfterContentInit\");\n  }\n  ngAfterViewChecked(){\n    console.log(\"AfterViewdChecked\");\n  }\n  ngAfterViewInit(){\n    console.log(\"AfterViewInit\");\n  }\nlogoutUser(){\n  // this.logout.emit();\n  this.logout.emit(\"random text\");\n}\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "div {\r\n    margin-right: 20px;\r\n}\r\n.user-icon {\r\n    border-radius: 25px;\r\n    height: 40px;\r\n    width: 40px;\r\n    padding: 5px;\r\n    background-color: crimson;\r\n}",
+                    "styleUrl": "./user-profile.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 21
+            },
+            "implements": [
+                "OnInit",
+                "OnChanges",
+                "OnDestroy",
+                "AfterContentChecked",
+                "AfterContentInit",
+                "AfterViewChecked",
+                "AfterViewInit"
+            ],
+            "templateData": "<div *ngIf=\"userProfile\" class=\"divs\">\n    <button mat-mini-fab color=\"accent\" area-label=\"Example\">\n        <mat-icon>home</mat-icon>\n    </button>\n    <span  class=\"user-icon\">{{userProfile.initials}}</span>\n    <button (click)=\"logoutUser()\">Logout</button>\n</div>\n\n<div *ngIf=\"!userProfile\">\n    <button>Login</button>\n</div>"
+        }
+    ],
+    "modules": [
+        {
+            "name": "AppModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        },
+                        {
+                            "name": "DatagridComponent"
+                        },
+                        {
+                            "name": "HomePageComponent"
+                        },
+                        {
+                            "name": "ListingComponent"
+                        },
+                        {
+                            "name": "LoginFormComponent"
+                        },
+                        {
+                            "name": "NavigationComponent"
+                        },
+                        {
+                            "name": "ProductListingComponent"
+                        },
+                        {
+                            "name": "RegisterFormComponent"
+                        },
+                        {
+                            "name": "UserProfileComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "AppRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "AppRoutingModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "UiComponentsModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AddNewProfileComponent"
+                        },
+                        {
+                            "name": "DatagridComponent"
+                        },
+                        {
+                            "name": "PhotoGridComponent"
+                        },
+                        {
+                            "name": "ProfileDetailsComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "AddNewProfileComponent"
+                        },
+                        {
+                            "name": "DatagridComponent"
+                        },
+                        {
+                            "name": "PhotoGridComponent"
+                        },
+                        {
+                            "name": "ProfileDetailsComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "type": "object",
+                "defaultValue": "{\n  production: true\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "type": "object",
+                "defaultValue": "{\n  production: false\n}"
+            },
+            {
+                "name": "Large",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "LoggedIn",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Header.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "LoggedIn",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Page.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "LoggedOut",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Header.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "LoggedOut",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Page.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "type": "literal type"
+            },
+            {
+                "name": "Secondary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Small",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "type": "Story<Button>",
+                "defaultValue": "(args: Button) => ({\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Header.stories.ts",
+                "type": "Story<Header>",
+                "defaultValue": "(args: Header) => ({\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Page.stories.ts",
+                "type": "Story<Page>",
+                "defaultValue": "(args: Page) => ({\n  props: args,\n})"
+            }
+        ],
+        "functions": [
+            {
+                "name": "CompareValidator",
+                "file": "src/app/forms/validators/compare.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "description": "",
+                "args": [
+                    {
+                        "name": "control1"
+                    },
+                    {
+                        "name": "control2"
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "control1",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "control2",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "ProdaptEmail",
+                "file": "src/app/forms/validators/prodapt-email.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "description": "",
+                "args": [
+                    {
+                        "name": "control"
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "control",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
+        ],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "type": "literal type"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "type": "object",
+                    "defaultValue": "{\n  production: true\n}"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "type": "object",
+                    "defaultValue": "{\n  production: false\n}"
+                }
+            ],
+            "src/stories/Button.stories.ts": [
+                {
+                    "name": "Large",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Secondary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Small",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "type": "Story<Button>",
+                    "defaultValue": "(args: Button) => ({\n  props: args,\n})"
+                }
+            ],
+            "src/stories/Header.stories.ts": [
+                {
+                    "name": "LoggedIn",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Header.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "LoggedOut",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Header.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Header.stories.ts",
+                    "type": "Story<Header>",
+                    "defaultValue": "(args: Header) => ({\n  props: args,\n})"
+                }
+            ],
+            "src/stories/Page.stories.ts": [
+                {
+                    "name": "LoggedIn",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Page.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "LoggedOut",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Page.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Page.stories.ts",
+                    "type": "Story<Page>",
+                    "defaultValue": "(args: Page) => ({\n  props: args,\n})"
+                }
+            ]
+        },
+        "groupedFunctions": {
+            "src/app/forms/validators/compare.ts": [
+                {
+                    "name": "CompareValidator",
+                    "file": "src/app/forms/validators/compare.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "control1"
+                        },
+                        {
+                            "name": "control2"
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "control1",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "control2",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "src/app/forms/validators/prodapt-email.ts": [
+                {
+                    "name": "ProdaptEmail",
+                    "file": "src/app/forms/validators/prodapt-email.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "control"
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "control",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": {
+        "name": "<root>",
+        "kind": "module",
+        "className": "AppModule",
+        "children": [
+            {
+                "name": "routes",
+                "filename": "src/app/app-routing.module.ts",
+                "module": "AppRoutingModule",
+                "children": [],
+                "kind": "module"
+            }
+        ]
+    },
+    "coverage": {
+        "count": 2,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "e2e/src/app.po.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "AppPage",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AppComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/datagrid/datagrid.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "DatagridComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/header/header.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HeaderComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/10",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/listing/listing.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ListingComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/navigation/navigation.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "NavigationComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/product-listing/product-listing.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ProductListingComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/user-profile/user-profile.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "UserProfileComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/13",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/user-profile/user-profile.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "IProfile",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/forms/login-form/login-form.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "LoginFormComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/forms/register-form/register-form.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "RegisterFormComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/forms/validators/compare.ts",
+                "type": "function",
+                "linksubtype": "function",
+                "name": "CompareValidator",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/forms/validators/prodapt-email.ts",
+                "type": "function",
+                "linksubtype": "function",
+                "name": "ProdaptEmail",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/modules/ui-components/components/add-new-profile/add-new-profile.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AddNewProfileComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/modules/ui-components/components/datagrid/datagrid.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "DatagridComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/modules/ui-components/components/photo-grid/photo-grid.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "PhotoGridComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/8",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/modules/ui-components/components/profile-details/profile-details.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ProfileDetailsComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/pages/home-page/home-page.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HomePageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/services/account.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "AccountService",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/services/profile.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "ProfileService",
+                "coveragePercent": 0,
+                "coverageCount": "0/9",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.prod.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Large",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Secondary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Small",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Header.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedIn",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Header.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedOut",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Header.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Page.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedIn",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Page.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedOut",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Page.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/button.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonComponent",
+                "coveragePercent": 83,
+                "coverageCount": "5/6",
+                "status": "very-good"
+            },
+            {
+                "filePath": "src/stories/header.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HeaderComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/page.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "PageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "context",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "require",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}

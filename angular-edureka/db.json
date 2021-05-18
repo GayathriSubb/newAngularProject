@@ -1,0 +1,92 @@
+{
+  "users": [
+    {
+      "email": "fsdfdsf@dsfdsf.fdf",
+      "password": "$2a$10$zsAN9eRUxaqDLsM8l8XqcOmsicYooonlc1eGdsZua2dDJS5n2I8l2",
+      "username": "fsdfsfsf",
+      "id": 1
+    },
+    {
+      "email": "qwertyui@prodapt.com",
+      "password": "$2a$10$KhLsv89dx73XzQnK1bF9meCIb6qIIQPSLRc6qTJLgANb0ho60YpBi",
+      "username": "qwertyui",
+      "id": 2
+    },
+    {
+      "email": "qazwsxed@prodapt.com",
+      "password": "$2a$10$pAoZ1mjukpvqRzGHYCx9c./NB6ZwFKedNk6PCZtgnw7s4phvUeGC2",
+      "username": "qazwsxed",
+      "id": 3
+    },
+    {
+      "email": "wsxedcrf@prodapt.com",
+      "password": "$2a$10$XXNB/Gh3SnkZ/Gm4b6xnQ.kgk/dnEjWkCnSdodVDenD2ZSJ9wQ4lq",
+      "username": "wsxedcrf",
+      "id": 4
+    }
+  ],
+  "profiles": [
+    {
+      "name": "fsdfsafsdfsd",
+      "address": "sdfsdfdsf",
+      "picture": "fsdf",
+      "id": 1
+    },
+    {
+      "name": "dsff dsf fdsfd ",
+      "address": "sdfsdfdsff sdf fds",
+      "picture": "fs dfsd f",
+      "id": 2
+    }
+  ],
+  "products": [
+    {
+      "id" : 1,
+      "name": "Macbook Pro",
+      "price": 100000,
+      "discount": 15000,
+      "description": "",
+      "images": []
+    },
+    {
+      "id" : 2,
+      "name": "Macbook Air",
+      "price": 100000,
+      "discount": 15000,
+      "description": "",
+      "images": []
+    },
+    {
+      "id" : 3,
+      "name": "iPhone",
+      "price": 100000,
+      "discount": 15000,
+      "description": "",
+      "images": []
+    },
+    {
+      "id" : 4,
+      "name": "Note 10",
+      "price": 100000,
+      "discount": 15000,
+      "description": "",
+      "images": []
+    },
+    {
+      "id" : 5,
+      "name": "Note 20",
+      "price": 100000,
+      "discount": 15000,
+      "description": "",
+      "images": []
+    },
+    {
+      "id" : 6,
+      "name": "S21",
+      "price": 100000,
+      "discount": 15000,
+      "description": "",
+      "images": []
+    }
+  ]
+}

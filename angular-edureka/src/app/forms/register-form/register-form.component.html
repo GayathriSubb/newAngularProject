@@ -1,0 +1,66 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()" >
+    <p>
+        <label>
+            Username
+            <input name="username" formControlName="username" />
+        </label>
+        <!-- <span class="form-errors" *ngIf="username.errors && username.touched">
+            <span>This is a required value.</span>
+        </span> -->
+    </p>
+    <p>
+        <label>
+            Email
+            <input name="username" formControlName="email" />
+        </label>
+        <span class="form-errors" *ngIf="email.errors && email.touched">
+            <span>This is a required value.</span>
+        </span>
+    </p>
+    <p>
+        <label>
+            Password
+            <input type="password" name="password" formControlName="password"/>
+        </label>
+        <!-- <span class="form-errors" *ngIf="password.errors && password.touched">
+            <span *ngIf="password.errors.required">This is a required value.</span>
+            <span *ngIf="password.errors.minlength">Please provide 8 chars</span>
+        </span> -->
+    </p>
+    <p>
+        <label>
+            Confirm Password
+            <input type="password" name="confirm-password" formControlName="confirmPassword"/>
+        </label>
+        <span class="form-errors" *ngIf="registerForm.errors && password.touched && confirmPassword.touched">
+            <span *ngIf="registerForm.errors.compare">Password and Confirm password should be matching</span>
+        </span>
+    </p>
+
+    <p>
+        <label>
+            Dept
+            <select name="dept" formControlName="dept" value="" (change)="deptSelected()">
+                <option>Select Dept</option>
+                <option value="IT">IT</option>
+                <option value="HR">HR</option>
+                <option value=OTHER>Other</option>
+            </select>
+        </label>
+        <span class="form-errors" *ngIf="registerForm.errors && password.touched && confirmPassword.touched">
+            <span *ngIf="registerForm.errors.compare">Password and Confirm password should be matching</span>
+        </span>
+    </p>
+
+    <p>
+        <label>
+            Other Dept
+            <input type="password" name="other-dept" formControlName="otherDept"/>
+        </label>
+        <span class="form-errors" *ngIf="registerForm.errors && password.touched && confirmPassword.touched">
+            <span *ngIf="registerForm.errors.compare">Password and Confirm password should be matching</span>
+        </span>
+    </p>
+    <!-- [disabled]="loginForm.status === 'INVALID'" -->
+    <button type="submit">Register</button>
+</form>

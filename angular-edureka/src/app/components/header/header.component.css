@@ -1,0 +1,9 @@
+/* .header {
+    background-color: aquamarine;
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+} */
+.nav-row {
+    justify-content: space-between;
+}
